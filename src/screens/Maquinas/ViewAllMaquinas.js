@@ -25,7 +25,7 @@ const ViewAllMaquinas = ({navigation}) =>
                     {
                         Alert.alert(
                             'Mensaje',
-                            'No hay usuarios',
+                            'No hay Maquinas',
                             [{text: 'Ok', onPress: () => navigation.navigate('HomeScreen')}], {cancelable : false}
                         )
                     }
@@ -33,7 +33,7 @@ const ViewAllMaquinas = ({navigation}) =>
                 catch(error)
                 {
                     console.error(error);
-                    Alert.alert('Error al cargar usuarios');
+                    Alert.alert('Error al cargar maquinas');
                 }
             };
             fetchMaquina();
@@ -42,20 +42,28 @@ const ViewAllMaquinas = ({navigation}) =>
         const listItemView = (item) =>
             {
                 return(
-                    <View key = {item.MaquinaName} style={StyleSheet.listItemView}>
+                    <View key = {item.MaquinaId} style={StyleSheet.listItemView}>
                         <MyText
-                        text = 'Nombre de Usuario'
+                        text = 'Id de la maquina'
                         style={styles.text}
                         />
                         <MyText
-                         text={item.MaquinaName} style={styles.text}
+                         text={item.maquinaId} style={styles.text}
                          />
                         <MyText
-                         text = 'Email'
+                         text = 'Tipo de Maquina'
                          style = {styles.text}
                          />
                         <MyText
-                         text= {item.email} 
+                         text= {item.tipoMaq} 
+                         style={styles.text}
+                         />
+                         <MyText
+                         text = 'Nro de sala donde esta la maquina'
+                         style = {styles.text}
+                         />
+                        <MyText
+                         text= {item.nroSala} 
                          style={styles.text}
                          />
                     </View>

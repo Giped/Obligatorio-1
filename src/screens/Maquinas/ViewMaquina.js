@@ -6,22 +6,22 @@ import MyInputText from "../../components/MyInputText";
 import MySingleButton from "../../components/MySingleButton";
 
 const ViewMaquina = ({navigation}) => {
-    const [maquinaName, setMaquinaName] = useState('');
+    const [maquinaId, setMaquinaId] = useState('');
     const [maquinaData, setMaquinaData] = useState(null);
 
     const getMaquinaData = async () => {
         console.log('getMaquinaData')
 
         setMaquinaData(null);
-        if(!maquinaName.trim())
+        if(!maquinaId.trim())
             {
-                Alert.alert('El nombre de usuario es requerido');
+                Alert.alert('El Id de maquina es requerido');
                 return;
             }
 
         try
         {
-            const maquina = await AsyncStorage.getItem(maquinaName);
+            const maquina = await AsyncStorage.getItem(maquinaId);
             if(maquina)
                 {
                     setMaquinaData(JSON.parse(maquina));
@@ -43,13 +43,13 @@ const ViewMaquina = ({navigation}) => {
                     <ScrollView>
                         <KeyboardAvoidingView style={styles.keyboardView}>
                             <MyText 
-                                text= 'Filtro de usuario'
+                                text= 'Filtro de Maquina'
                                 style= {styles.text}
                             />
                             <MyInputText 
                                 style={styles.inputStyle}
-                                placeholder = 'Nombre de usuario a buscar'
-                                onChangeText= {(text) => setMaquinaName(text)}
+                                placeholder = 'Id de maquina a buscar'
+                                onChangeText= {(text) => setMaquinaId(text)}
                             />
                             <MySingleButton
                                 title='Buscar'
@@ -57,7 +57,13 @@ const ViewMaquina = ({navigation}) => {
                             />
                             <View style={styles.presenterView}>
                                 <MyText 
-                                    text= {`Email: ${!maquinaData ? '' : maquinaData.email}`} 
+                                    text= {`Tipo de Maquina: ${!maquinaData ? '' : maquinaData.tipoMaq}`} 
+                                    style= {styles.presenterText}
+                                />
+                            </View>
+                            <View style={styles.presenterView}>
+                                <MyText 
+                                    text= {`Nro de sala de maquina: ${!maquinaData ? '' : maquinaData.nroSala}`} 
                                     style= {styles.presenterText}
                                 />
                             </View>

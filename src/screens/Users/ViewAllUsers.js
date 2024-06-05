@@ -48,14 +48,30 @@ const ViewAllUsers = ({navigation}) =>
                         style={styles.text}
                         />
                         <MyText
-                         text={item.UserName} style={styles.text}
+                         text={item.userName} style={styles.text}
                          />
                         <MyText
-                         text = 'Email'
+                         text = 'Apellido'
                          style = {styles.text}
                          />
                         <MyText
-                         text= {item.email} 
+                         text= {item.Apellido} 
+                         style={styles.text}
+                         />
+                         <MyText
+                         text = 'Cedula'
+                         style = {styles.text}
+                         />
+                        <MyText
+                         text= {item.Cedula} 
+                         style={styles.text}
+                         />
+                         <MyText
+                         text = 'Fecha de Nacimiento'
+                         style = {styles.text}
+                         />
+                        <MyText
+                         text= {item.Fnac} 
                          style={styles.text}
                          />
                     </View>

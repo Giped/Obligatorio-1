@@ -5,39 +5,39 @@ import MyInputText from "../../components/MyInputText";
 import MySingleButton from "../../components/MySingleButton";
 
 const RegisterMaquina = ({navigation}) => {
-    const [maquinaName, setMaquinaName] = useState('');
-    const [password, setPassword] = useState('');
-    const [email, setEmail] = useState('');
+    const [maquinaId, setMaquinaId] = useState('');
+    const [tipoMaq, setTipoMaq] = useState('');
+    const [nroSala, setNroSala] = useState('');
 
     const clearData = () => {
-        setMaquinaName('');
-        setPassword('');
-        setEmail('');
+        setMaquinaId('');
+        setTipoMaq('');
+        setNroSala('');
     }
 
     const registerMaquina = async () => {
-        console.log('states', maquinaName, password, email);
-        if (!maquinaName.trim()) {
-            Alert.alert('Ingrese su nombre de usuario');
+        console.log('states', maquinaId, tipoMaq, nroSala);
+        if (!maquinaId.trim()) {
+            Alert.alert('Ingrese el Id de la maquina');
             return;
         }
-        if (!password.trim()) {
-            Alert.alert('Ingrese su contraseña');
+        if (!tipoMaq.trim()) {
+            Alert.alert('Ingrese el tipo de maquina');
             return;
         }
-        if (!email.trim() || email.indexOf('@') === -1) {
-            Alert.alert('Ingrese su email');
+        if (!nroSala.trim()) {
+            Alert.alert('Ingrese el numero de sala de la maquina');
             return;
         }
 
         try {
-            const maquina = {maquinaName, password, email};
+            const maquina = {maquinaId, tipoMaq, nroSala};
 
-            await AsyncStorage.setItem(maquinaName, JSON.stringify(maquina));
+            await AsyncStorage.setItem(maquinaId, JSON.stringify(maquina));
             clearData();
             Alert.alert(
                 'Éxito',
-                'Usuario Registrado',
+                'Maquina Registrada',
                 [{ text: 'Ok', onPress: () => navigation.navigate('HomeScreen') }],
                 { cancelable: false }
             );
@@ -54,29 +54,25 @@ const RegisterMaquina = ({navigation}) => {
                     <ScrollView>
                         <KeyboardAvoidingView style={styles.keyboardView}>
                             <MyInputText
-                                placeholder='Nombre de Usuario'
-                                onChangeText={setMaquinaName}
+                                placeholder='Id de la Maquina'
+                                onChangeText={setMaquinaId}
                                 style={styles.nameInput}
-                                value={maquinaName}
+                                value={maquinaId}
                             />
                             <MyInputText
-                                placeholder='Contraseña'
-                                minLength={8}
-                                maxLength={16}
-                                secureTextEntry={true}
-                                onChangeText={setPassword}
-                                style={styles.passwordInput}
-                                value={password}
+                                placeholder='Tipo de Maquina'
+                                onChangeText={setTipoMaq}
+                                style={styles.nameInput}
+                                value={tipoMaq}
                             />
                             <MyInputText
-                                placeholder='Email'
-                                keyboardType='email-address'
-                                onChangeText={setEmail}
-                                style={styles.emailInput}
-                                value={email}
+                                placeholder='Nro de sala de la Maquina'
+                                onChangeText={setNroSala}
+                                style={styles.nameInput}
+                                value={nroSala}
                             />
                             <MySingleButton
-                                title='Guardar Usuario'
+                                title='Guardar Maquina'
                                 customPress={registerMaquina}
                             />
                         </KeyboardAvoidingView>
@@ -108,12 +104,5 @@ const styles = StyleSheet.create({
         padding: 15,
         textAlignVertical: 'top'
     },
-    passwordInput: {
-        padding: 15,
-        textAlignVertical: 'top'
-    },
-    emailInput: {
-        padding: 15,
-        textAlignVertical: 'top'
-    }
+
 });

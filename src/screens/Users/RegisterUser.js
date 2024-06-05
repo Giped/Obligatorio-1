@@ -6,32 +6,38 @@ import MySingleButton from "../../components/MySingleButton";
 
 const RegisterUser = ({navigation}) => {
     const [userName, setUserName] = useState('');
-    const [password, setPassword] = useState('');
-    const [email, setEmail] = useState('');
+    const [Apellido, setApellido] = useState('');
+    const [Cedula, setCedula] = useState('');
+    const [Fnac, setFnac] = useState('');
 
     const clearData = () => {
         setUserName('');
-        setPassword('');
-        setEmail('');
+        setApellido('');
+        setCedula('');
+        setFnac('');
     }
 
     const registerUser = async () => {
-        console.log('states', userName, password, email);
+        console.log('states', userName, Apellido,Cedula,Fnac);
         if (!userName.trim()) {
             Alert.alert('Ingrese su nombre de usuario');
             return;
         }
-        if (!password.trim()) {
-            Alert.alert('Ingrese su contraseña');
+        if (!Apellido.trim()) {
+            Alert.alert('Ingrese su Apellido');
             return;
         }
-        if (!email.trim() || email.indexOf('@') === -1) {
-            Alert.alert('Ingrese su email');
+        if (!Cedula.trim()) {
+            Alert.alert('Ingrese su Cedula');
+            return;
+        }
+        if (!Fnac.trim()) {
+            Alert.alert('Ingrese su Fecha de Nacimiento');
             return;
         }
 
         try {
-            const user = {userName, password, email};
+            const user = {userName, Apellido,Cedula,Fnac};
 
             await AsyncStorage.setItem(userName, JSON.stringify(user));
             clearData();
@@ -60,20 +66,22 @@ const RegisterUser = ({navigation}) => {
                                 value={userName}
                             />
                             <MyInputText
-                                placeholder='Contraseña'
-                                minLength={8}
-                                maxLength={16}
-                                secureTextEntry={true}
-                                onChangeText={setPassword}
-                                style={styles.passwordInput}
-                                value={password}
+                                placeholder='Apellido'
+                                onChangeText={setApellido}
+                                style={styles.nameInput}
+                                value={Apellido}
                             />
                             <MyInputText
-                                placeholder='Email'
-                                keyboardType='email-address'
-                                onChangeText={setEmail}
-                                style={styles.emailInput}
-                                value={email}
+                                placeholder='Cedula'
+                                onChangeText={setCedula}
+                                style={styles.nameInput}
+                                value={Cedula}
+                            />
+                            <MyInputText
+                                placeholder='Fnac'
+                                onChangeText={setFnac}
+                                style={styles.nameInput}
+                                value={Fnac}
                             />
                             <MySingleButton
                                 title='Guardar Usuario'
@@ -105,10 +113,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     nameInput: {
-        padding: 15,
-        textAlignVertical: 'top'
-    },
-    passwordInput: {
         padding: 15,
         textAlignVertical: 'top'
     },

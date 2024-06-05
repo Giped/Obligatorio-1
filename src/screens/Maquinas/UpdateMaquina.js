@@ -7,33 +7,35 @@ import MySingleButton from "../../components/MySingleButton";
 
 const UpdateMaquina = () => {
     
-    const [maquinaNameSearch, setMaquinaNameSearch] = useState('')
-    const [maquinaName, setMaquinaName] = useState('')
-    const [maquinaEmail, setEmail] = useState('')
+    const [maquinaIdSearch, setMaquinaIdSearch] = useState('')
+    const [maquinaId, setMaquinaId] = useState('');
+    const [tipoMaq, setTipoMaq] = useState('');
+    const [nroSala, setNroSala] = useState('');
 
     const searchMaquina = async () => {
         console.log('searchMaquina')
-        if(!maquinaNameSearch.trim()){
-            Alert.alert('El nombre de usuario es requerido')
+        if(!maquinaIdSearch.trim()){
+            Alert.alert('El Id de la Maquina es requerida')
             return;
         }
 
         try{
-            const maquina = await AsyncStorage.getItem(maquinaNameSearch)
+            const maquina = await AsyncStorage.getItem(maquinaIdSearch)
             if(maquina)
             {
                 const maquinaData = JSON.parse(maquina)
-                setMaquinaName(maquinaData.maquinaName)
-                setEmail(maquinaData.email)
+                setMaquinaId(maquinaData.maquinaId)
+                setTipoMaq(maquinaData.tipoMaq)
+                setNroSala(maquinaData.nroSala)
             }
             else
             {
-                Alert.alert('Usuario no encontrado')
+                Alert.alert('Maquina no encontrado')
             }
         }
         catch(error){
             console.error(error)
-            Alert.alert('Error al buscar Usuario')
+            Alert.alert('Error al buscar Maquina')
         }
     };
 
@@ -41,27 +43,32 @@ const UpdateMaquina = () => {
         {
             console.log('updateMaquina')
 
-            if(!maquinaName.trim())
+            if(!maquinaId.trim())
             {
-                Alert.alert('El nombre de usuario es requerido');
+                Alert.alert('El Id de la maquina es requerido');
                 return;
             }
-            if(!maquinaEmail.trim())
+            if(!tipoMaq.trim())
             {
-                Alert.alert('El email es requerido');
+                Alert.alert('El tipo de maquina es requerido');
                 return;
             }
+            if(!nroSala.trim())
+                {
+                    Alert.alert('El numero de sala donde esta la maquina es requerido');
+                    return;
+                }
 
             try
             {
-                const maquina = {maquinaName, email: maquinaEmail};
-                await AsyncStorage.setItem(maquinaName, JSON.stringify(maquina))
-                Alert.alert('Usuario actualizado')
+                const maquina = {maquinaId,tipoMaq,nroSala};
+                await AsyncStorage.setItem(maquinaId, JSON.stringify(maquina))
+                Alert.alert('Maqunia actualizada')
             }
             catch(error)
             {
                 console.error(error)
-                Alert.alert('Error al actualizar el usuario')
+                Alert.alert('Error al actualizar Maquina')
             }
         };
 
@@ -72,28 +79,34 @@ const UpdateMaquina = () => {
                         <ScrollView keyboardShouldPersistTaps = 'handled'>
                             <KeyboardAvoidingView behavior="padding">
                                 <MyText 
-                                    text = 'Buscar Usuario'
+                                    text = 'Buscar Maquina'
                                     style = {styles.text}
                                 />
                                 <MyInputText 
-                                    placeholder = 'Ingrese el nombre de usuario'
+                                    placeholder = 'Ingrese el Id de la maquina'
                                     style={styles.inputStyle}
-                                    onChangeText= {(text) => setMaquinaNameSearch(text)}
+                                    onChangeText= {(text) => setMaquinaIdSearch(text)}
                                 />
                                 <MySingleButton
                                     title = 'Buscar'
                                     customPress = {searchMaquina}
                                  />
                                 <MyInputText 
-                                    placeholder = 'Ingrese el nombre de usuario'
-                                    value = {maquinaName}
-                                    onChangeText= {(text) => setMaquinaName(text)}
+                                    placeholder = 'Ingrese el Id de la maquina'
+                                    value = {maquinaId}
+                                    onChangeText= {(text) => setMaquinaId(text)}
                                 />
                                 <MyInputText 
-                                    placeholder = 'Ingrese el email'
-                                    value = {maquinaEmail}
-                                    onChangeText= {(text) => setEmail(text)}
+                                    placeholder = 'Ingrese el tipo de maquina'
+                                    value = {tipoMaq}
+                                    onChangeText= {(text) => setTipoMaq(text)}
                                 />
+                                <MyInputText 
+                                    placeholder = 'Ingrese el nro de salsa donde esta la maquina'
+                                    value = {nroSala}
+                                    onChangeText= {(text) => setNroSala(text)}
+                                />
+
                                 <MySingleButton
                                     title = 'Actualizar'
                                     customPress = {updateMaquina}

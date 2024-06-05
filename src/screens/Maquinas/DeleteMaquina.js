@@ -8,7 +8,7 @@ import MySingleButton from "../../components/MySingleButton";
 const DeleteMaquina = ({navigation}) => 
 {
 
-    const [maquinaName, setMaquinaName] = useState('');
+    const [maquinaId, setMaquinaId] = useState('');
 
     const deleteMaquina = async () => 
         {
@@ -16,15 +16,15 @@ const DeleteMaquina = ({navigation}) =>
 
             try
             {
-                const maquina =await AsyncStorage.getItem(maquinaName);
+                const maquina =await AsyncStorage.getItem(maquinaId);
 
                 if(maquina)
                     {
-                        await AsyncStorage.removeItem(maquinaName);
-                        Alert.alert('Usuario eliminado')
+                        await AsyncStorage.removeItem(maquinaId);
+                        Alert.alert('Maquina eliminada')
                     }
                 else
-                    Alert.alert('El usuario no existe');
+                    Alert.alert('La maquina no existe');
             }
             catch(error)
             {
@@ -39,17 +39,17 @@ const DeleteMaquina = ({navigation}) =>
                     <View style={styles.generalView}>
                         <ScrollView>
                                 <MyText 
-                                    text= 'Buscar usuario a eliminar'
+                                    text= 'Buscar la maquina a eliminar'
                                     style= {styles.text}
                                 />
                                 <KeyboardAvoidingView style={styles.keyboardView}>
                                     <MyInputText 
-                                        placeholder = 'Nombre de usuario'
+                                        placeholder = 'Id de maquina'
                                         style={styles.inputStyle}
-                                        onChangeText= {(text) => setMaquinaName(text)}
+                                        onChangeText= {(text) => setMaquinaId(text)}
                                     />
                                     <MySingleButton
-                                        title='Borrar Usuario'
+                                        title='Borrar maquina'
                                         customPress={deleteMaquina}
                                     />
                                 </KeyboardAvoidingView>
